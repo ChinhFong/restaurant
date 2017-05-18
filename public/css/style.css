@@ -1,0 +1,9 @@
+.login-logo{margin-top: 50px;}
+.bg-login{background-image: url(../img/others/back.png); background-repeat: repeat; padding-bottom: 185px;}
+.login-form{margin-top: 50px; border: 1px solid #e5e5e5; overflow: hidden; box-shadow: 1px 1px 1px; background-color: rgba(255, 255, 255, 0.4); padding:30px;}
+.login-header{margin: 0 150px;}
+.in-style{display: inline-block;}
+.expand-nav{margin:20px}
+a:hover > .expand-nav{background-color: gray;}
+.style-nav  a{color:#48484D;}
+.exp-navi,.exp-navi:hover{color:white;}
