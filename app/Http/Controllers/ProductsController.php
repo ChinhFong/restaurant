@@ -4,10 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Module;
-use App\Submodule;
-use DB;
-use Artisan;
-class ModuleController extends Controller
+class ProductsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,8 +16,7 @@ class ModuleController extends Controller
         //
         $modules = Module::all();
         $mods = Module::orderBy('name','desc')->get();
-        // dd($modules);
-        return view('auth.modules.index',compact('modules','mods'));
+        return view('auth.products.index',compact('modules','mods'));
     }
 
     /**
@@ -31,8 +27,6 @@ class ModuleController extends Controller
     public function create()
     {
         //
-        $modules = Module::all();
-        return view('auth.modules.create',compact('modules'));
     }
 
     /**
@@ -44,37 +38,6 @@ class ModuleController extends Controller
     public function store(Request $request)
     {
         //
-        // dd($request->all());
-        $this->validate($request,[
-          'name'=>'required|min:6',
-          'fa_module'=>'required|min:6',
-          'submod_name'=> 'required|min:4',
-          'fa_url'=>'required|min:6',
-          'url_default'=>'required|min:6',
-        ]);
-        // dd($request->all());
-        try {
-          DB::beginTransaction();
-          $mod = new Module();
-          $submod = new Submodule();
-          //module
-          $mod->name = $request->name;
-          $mod->fa_desc = $request->fa_module;
-          $mod->save();
-          // dd($mod);
-          //submod
-          $submod->url = $request->url_default;
-          $submod->name = $request->submod_name;
-          $submod->fa_desc = $request->fa_url;
-
-          $mod->submodules()->save($submod);
-          DB::commit();
-          Artisan::call('make:controller',['name' =>  $mod->name.'Controller','-r'=>'true']);
-          Artisan::call('make:view',['name'=>'auth.'.strtolower($mod->name),'--resource'=>'true','--extends'=>'layouts.admin','--section'=>['title','content','scripts']]);
-        } catch (Exception $e) {
-          DB::rollback();
-        }
-        return redirect()->route('modules.index');
     }
 
     /**

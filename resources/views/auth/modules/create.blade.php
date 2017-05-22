@@ -28,14 +28,14 @@
                     <div class="input-group">
                       {{-- <span class="input-group-addon">Name</span> --}}
                       <label for="">Name:</label>
-                      <input type="text" class="form-control" placeholder="Module Name" name="name" id="name">
+                      <input type="text" class="form-control" placeholder="Module Name" name="name" id="name" value="{{old('name')}}">
                     </div>
                   </div>
                   <div class="col-md-3">
                     <div class="input-group">
                       {{-- <span class="input-group-addon">Name</span> --}}
                       <label for="">FA_Icon:</label>
-                      <input type="text" class="form-control" placeholder="Font Awesome Icon" name="fa_module" id="fa_module">
+                      <input type="text" class="form-control" placeholder="Font Awesome Icon" name="fa_module" id="fa_module"value="{{old('fa_module')}}">
                     </div>
                   </div>
                 </div>
@@ -43,23 +43,23 @@
                   <div class="col-md-3">
                     <div class="input-group">
                       {{-- <span class="input-group-addon">Name</span> --}}
-                      <label for="">Url_Name:</label>
-                      <input type="text" class="form-control" placeholder="Url name" name="submod_name" id="url_name">
+                      <label for="">Sub-Module Name:</label>
+                      <input type="text" class="form-control" placeholder="Sub-Module name" name="submod_name" id="url_name" value="{{old('submod_name')}}">
                     </div>
                   </div>
                   <div class="col-md-3">
                     <div class="input-group">
                       {{-- <span class="input-group-addon">Name</span> --}}
                       <label for="">Url_Fa</label>
-                      <input type="text" class="form-control" placeholder="FA For Url" name="fa_url" id="fa_url">
+                      <input type="text" class="form-control" placeholder="FA For Url" name="fa_url" id="fa_url" value="{{old('fa_url')}}">
                     </div>
                   </div>
                   <div class="col-md-3">
                     <div class="input-group">
                       {{-- <span class="input-group-addon">Name</span> --}}
                       <label for="">Default_Url:</label>
-                      <input type="text" class="form-control" value="" placeholder=".index"  name="" id="url" disabled>
-                      <input type="hidden" name="url_default" value="" id="url_def">
+                      <input type="text" class="form-control" value="{{old('url_default')}}" placeholder=".index"  name="def" id="url" disabled>
+                      <input type="hidden" name="url_default" value="{{old('url_default')}}" id="url_def">
                     </div>
                   </div>
                 </div>
