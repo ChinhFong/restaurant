@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Module;
+use App\Product;
 class ProductsController extends Controller
 {
     /**
@@ -15,8 +16,8 @@ class ProductsController extends Controller
     {
         //
         $modules = Module::all();
-        $mods = Module::orderBy('name','desc')->get();
-        return view('auth.products.index',compact('modules','mods'));
+        $products=Product::orderBy('id','desc')->get();
+        return view('auth.products.index',compact('modules','products'));
     }
 
     /**
