@@ -20,6 +20,8 @@
                           <th>Price In</th>
                           <th>Price Out</th>
                           <th>Created By</th>
+                          <th>Created_At</th>
+                          <th>Updated_At</th>
                           <th class="text-right">OPTIONS</th>
                         </tr>
                     </thead>
@@ -35,6 +37,8 @@
                               <td>${{$product->in_price}}</td>
                               <td>${{$product->out_price}}</td>
                               <td>{{$user->name}}</td>
+                              <td>{{$product->created_at}}</td>
+                              <td>{{$product->updated_at}}</td>
                               <td class="text-right">
                                   {{-- <a class="btn btn-xs btn-primary" href="{{ route('products.show', $product->id) }}"><i class="glyphicon glyphicon-eye-open"></i></a> --}}
                                   <a class="btn btn-xs btn-warning" href="{{ route('products.edit', $product->id) }}"><i class="glyphicon glyphicon-edit"></i></a>
