@@ -1,5 +1,5 @@
 @extends('layouts.admin')
-@section('title','Modules')
+@section('title','Products')
 @section('content')
   <div class="page-header clearfix">
       <h1>
@@ -36,9 +36,9 @@
                               <td>${{$product->out_price}}</td>
                               <td>{{$user->name}}</td>
                               <td class="text-right">
-                                  <a class="btn btn-xs btn-primary" href="{{ route('modules.show', $product->id) }}"><i class="glyphicon glyphicon-eye-open"></i></a>
-                                  <a class="btn btn-xs btn-warning" href="{{ route('modules.edit', $product->id) }}"><i class="glyphicon glyphicon-edit"></i></a>
-                                  <form action="{{ route('modules.destroy', $product->id) }}" method="POST" style="display: inline;" onsubmit="if(confirm('Delete? Are you sure?')) { return true } else {return false };">
+                                  {{-- <a class="btn btn-xs btn-primary" href="{{ route('products.show', $product->id) }}"><i class="glyphicon glyphicon-eye-open"></i></a> --}}
+                                  <a class="btn btn-xs btn-warning" href="{{ route('products.edit', $product->id) }}"><i class="glyphicon glyphicon-edit"></i></a>
+                                  <form action="{{ route('products.destroy', $product->id) }}" method="POST" style="display: inline;" onsubmit="if(confirm('Delete? Are you sure?')) { return true } else {return false };">
                                       <input type="hidden" name="_method" value="DELETE">
                                       <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                       <button type="submit" class="btn btn-xs btn-danger"><i class="glyphicon glyphicon-trash"></i></button>
@@ -89,7 +89,9 @@
 @section('scripts')
   <script>
   $(document).ready(function() {
-      $('#dataTable').DataTable();
+      $('#dataTable').DataTable({
+        "order":[[0,'desc']]
+      });
   } );
   </script>
 @stop

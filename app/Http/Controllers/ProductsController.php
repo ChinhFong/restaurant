@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Module;
 use App\Product;
+use DB;
+use App\User;
+use Auth;
 class ProductsController extends Controller
 {
     /**
@@ -16,7 +19,7 @@ class ProductsController extends Controller
     {
         //
         $modules = Module::all();
-        $products=Product::orderBy('id','desc')->get();
+        $products=Product::all();
         return view('auth.products.index',compact('modules','products'));
     }
 
@@ -28,6 +31,8 @@ class ProductsController extends Controller
     public function create()
     {
         //
+        $modules = Module::all();
+        return view('auth.products.create',compact('modules'));
     }
 
     /**
@@ -39,6 +44,24 @@ class ProductsController extends Controller
     public function store(Request $request)
     {
         //
+        // dd($request->all());
+        $this->validate($request,[
+          'name'=>'required|min:3',
+          'in_price'=>'required',
+          'out_price'=> 'required',
+        ]);
+
+        try {
+          DB::beginTransaction();
+
+          $user = User::find(Auth::user()->id);
+          $user->products()->save(new Product(['name'=>$request->name,'in_price'=>$request->in_price,'out_price'=>$request->out_price,'desc'=>$request->desc]));
+
+          DB::commit();
+        } catch (Exception $e) {
+          DB::rollback();
+        }
+        return redirect()->route('products.index');
     }
 
     /**
@@ -61,6 +84,10 @@ class ProductsController extends Controller
     public function edit($id)
     {
         //
+        $modules = Module::all();
+        $product = Product::find($id);
+        // dd($product);
+        return view('auth.products.edit',compact('product','modules'));
     }
 
     /**
@@ -73,6 +100,25 @@ class ProductsController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $this->validate($request,[
+          'name'=>'required|min:3',
+          'in_price'=>'required',
+          'out_price'=> 'required',
+        ]);
+
+        try {
+          DB::beginTransaction();
+
+          $user = User::find(Auth::user()->id);
+          $product = Product::find($id);
+          $user->products()->whereId($product->id)->update(['name'=>$request->name,'in_price'=>$request->in_price,'out_price'=>$request->out_price,'desc'=>$request->desc]);
+
+          DB::commit();
+        } catch (Exception $e) {
+          DB::rollback();
+        }
+        return redirect()->route('products.index');
+
     }
 
     /**
