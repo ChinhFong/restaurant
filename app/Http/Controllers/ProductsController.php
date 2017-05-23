@@ -111,7 +111,8 @@ class ProductsController extends Controller
 
           $user = User::find(Auth::user()->id);
           $product = Product::find($id);
-          $user->products()->whereId($product->id)->update(['name'=>$request->name,'in_price'=>$request->in_price,'out_price'=>$request->out_price,'desc'=>$request->desc]);
+          $userName= $user->name;
+          $user->products()->whereId($product->id)->update(['name'=>$request->name,'in_price'=>$request->in_price,'out_price'=>$request->out_price,'desc'=>$request->desc,'updated_by'=>$userName]);
 
           DB::commit();
         } catch (Exception $e) {
