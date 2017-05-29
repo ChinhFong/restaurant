@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Table;
+use App\Module;
 class TableController extends Controller
 {
     /**
@@ -14,6 +15,9 @@ class TableController extends Controller
     public function index()
     {
         //
+        $modules = Module::all();
+        $tables = Table::all();
+        return view('auth.tables.index',compact('modules','tables'));
     }
 
     /**
@@ -24,6 +28,8 @@ class TableController extends Controller
     public function create()
     {
         //
+        $modules = Module::all();
+        return view('auth.tables.create',compact('modules'));
     }
 
     /**
@@ -35,6 +41,12 @@ class TableController extends Controller
     public function store(Request $request)
     {
         //
+        $this->validate($request,[
+          'name'=>'required|min:6',
+        ]);
+        $table = new Table(['name'=>$request->name,'desc'=>$request->desc]);
+        $table->save();
+        return redirect()->route('tables.index');
     }
 
     /**
@@ -57,6 +69,9 @@ class TableController extends Controller
     public function edit($id)
     {
         //
+        $modules = Module::all();
+        $table = Table::find($id);
+        return view('auth.tables.edit',compact('modules','table'));
     }
 
     /**
@@ -69,6 +84,14 @@ class TableController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $this->validate($request,[
+          'name'=>'required|min:6',
+        ]);
+        $table = Table::find($id);
+        $table->update(['name'=>$request->name,'desc'=>$request->desc]);
+
+        return redirect()->route('tables.index');
+
     }
 
     /**

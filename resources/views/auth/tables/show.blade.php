@@ -1,5 +1,4 @@
 @extends('layouts.admin')
-@section('title','Show|Submodule')
 @section('content')
   <div class="page-header">
           <h1>Sub-Menu of "{{$module->name}}"</h1>

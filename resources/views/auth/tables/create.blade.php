@@ -1,46 +1,36 @@
 @extends('layouts.admin')
-@section('title','New|Submodule')
+
 {{-- @section('header')
 
 @endsection --}}
-
+@section('title','New | Table')
 @section('content')
   <div class="page-header">
-      <h1><i class="glyphicon glyphicon-plus"></i> Modules / Create </h1>
+      <h1><i class="glyphicon glyphicon-plus"></i> Table / Create </h1>
   </div>
     {{-- @include('error') --}}
     <div class="row">
         <div class="col-md-12">
         @include('includes.error-validate')
-            <form action="{{ route('submodules.store') }}" method="POST">
+            <form action="{{ route('tables.store') }}" method="POST">
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                 <div class="row">
 
                   <div class="col-md-3">
                     <div class="input-group">
                       {{-- <span class="input-group-addon">Name</span> --}}
-                      <label for="">Submodule Name :</label>
-                      <input type="text" class="form-control" placeholder="SubModule Name" name="name" id="name" value="{{ old('name') }}">
-                      <input type="hidden" name="mod_id" value="{{ $mod_id or old('mod_id')}}" id="">
+                      <label for="">Table Name :</label>
+                      <input type="text" class="form-control" placeholder="Table name" name="name" id="name" value="{{ old('name') }}">
                     </div>
                   </div>
 
-                  <div class="col-md-3">
+                  <div class="col-md-6">
                     <div class="input-group">
-                      {{-- <span class="input-group-addon">Name</span> --}}
-                      <label for="">Submodule :</label>
-                      <input type="text" class="form-control" placeholder="Font awesome" name="fa_desc" id="fa_desc" value="{{ old('fa_desc') }}">
+                      <label for="">Description :</label>
+                      <textarea rows="5" cols="70" class="form-control" placeholder="Description" name="desc" id="desc"value="{{old('desc')}}" ></textarea>
                     </div>
                   </div>
 
-                  <div class="col-md-3">
-                    <div class="input-group">
-                      {{-- <span class="input-group-addon">Name</span> --}}
-                      <label for="">Icon :</label>
-                      <input type="text" class="form-control" placeholder="submodule" name="url" id="url" value="{{ old('url_default') }}" disabled>
-                      <input type="hidden" name="url_default" value="{{old('url_default')}}" id="url_def">
-                    </div>
-                  </div>
                 </div>
                 <br/>
                 <div class="well well-sm">

@@ -43,6 +43,11 @@ class SubmoduleController extends Controller
     {
         //
         // dd($request->all());
+        $this->validate($request,[
+          'name'=>'required|min:6',
+          'fa_desc'=> 'required|min:6',
+          'url_default'=>'required|min:6',
+        ]);
         $mod = Module::find($request->mod_id);
         $mod->submodules()->save(new Submodule(['name'=>$request->name,'fa_desc'=>$request->fa_desc,'url'=>$request->url_default]));
         return redirect()->route('modules.show',$request->mod_id);

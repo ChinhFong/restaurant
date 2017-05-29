@@ -1,9 +1,9 @@
 @extends('layouts.admin')
-@section('title','Modules')
+@section('title','Sub-Modules')
 @section('content')
   <div class="page-header clearfix">
       <h1>
-          <i class="glyphicon glyphicon-align-justify"></i> Modules
+          <i class="glyphicon glyphicon-align-justify"></i> SubModules
           <a class="btn btn-success pull-right" href="{{ route('modules.create') }}"><i class="glyphicon glyphicon-plus"></i> Create</a>
       </h1>
 

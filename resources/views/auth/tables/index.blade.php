@@ -1,50 +1,34 @@
 @extends('layouts.admin')
-@section('title','Products')
+@section('title','Tables')
 @section('content')
   <div class="page-header clearfix">
       <h1>
-          <i class="glyphicon glyphicon-align-justify"></i> Products
-          <a class="btn btn-success pull-right" href="{{ route('products.create') }}"><i class="glyphicon glyphicon-plus"></i> Create</a>
+          <i class="fa fa-table"></i>Tables
+          <a class="btn btn-success pull-right" href="{{ route('tables.create') }}"><i class="glyphicon glyphicon-plus"></i> Create</a>
       </h1>
 
   </div>
     <div class="row">
         <div class="col-md-12">
-            @if($products->count())
+            @if($tables->count())
                 <table id="dataTable" class="display table table-condensed table-striped" cellspacing="0" width="100%">
                     <thead>
                         <tr>
                           <th>ID</th>
                           <th>Name</th>
-                          <th>Description</th>
-                          <th>Price In</th>
-                          <th>Price Out</th>
-                          <th>Created By</th>
-                          <th>Created At</th>
-                          <th>Updated By</th>
-                          <th>Updated At</th>
+                          <th>Desc</th>
                           <th class="text-right">OPTIONS</th>
                         </tr>
                     </thead>
                     <tbody>
-                      @foreach($products as $product)
-                        @php
-                          $user = $product->user;
-                        @endphp
+                      @foreach($tables as $table)
                           <tr>
-                              <td>{{$product->id}}</td>
-                              <td>{{$product->name}}</td>
-                              <td>{{$product->desc}}</td>
-                              <td>${{$product->in_price}}</td>
-                              <td>${{$product->out_price}}</td>
-                              <td>{{$user->name}}</td>
-                              <td>{{$product->created_at}}</td>
-                              <td>{{$product->updated_by}}</td>
-                              <td>{{$product->updated_at}}</td>
+                              <td>{{$table->id}}</td>
+                              <td>{{$table->name}}</td>
+                              <td>{{$table->desc}}</td>
                               <td class="text-right">
-                                  {{-- <a class="btn btn-xs btn-primary" href="{{ route('products.show', $product->id) }}"><i class="glyphicon glyphicon-eye-open"></i></a> --}}
-                                  <a class="btn btn-xs btn-warning" href="{{ route('products.edit', $product->id) }}"><i class="glyphicon glyphicon-edit"></i></a>
-                                  <form action="{{ route('products.destroy', $product->id) }}" method="POST" style="display: inline;" onsubmit="if(confirm('Delete? Are you sure?')) { return true } else {return false };">
+                                  <a class="btn btn-xs btn-warning" href="{{ route('tables.edit', $table->id) }}"><i class="glyphicon glyphicon-edit"></i></a>
+                                  <form action="{{ route('tables.destroy', $table->id) }}" method="POST" style="display: inline;" onsubmit="if(confirm('Delete? Are you sure?')) { return true } else {return false };">
                                       <input type="hidden" name="_method" value="DELETE">
                                       <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                       <button type="submit" class="btn btn-xs btn-danger"><i class="glyphicon glyphicon-trash"></i></button>
@@ -95,12 +79,7 @@
 @section('scripts')
   <script>
   $(document).ready(function() {
-      $('#dataTable').DataTable({
-        "order":[[0,'desc']],
-        "scrollY": 350,
-        "scrollX": true,
-
-      });
+      $('#dataTable').DataTable();
   } );
   </script>
 @stop
