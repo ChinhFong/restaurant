@@ -3,11 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Module;
-use App\Submodule;
-use DB;
-use Illuminate\Support\Facades\Input;
-class SubmoduleController extends Controller
+
+class TableController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -27,10 +24,6 @@ class SubmoduleController extends Controller
     public function create()
     {
         //
-        // dd(Input::input('mod_id'));
-        $mod_id = Input::input('mod_id');
-        $modules = Module::all();
-        return view('auth.submodules.create',compact('modules','mod_id'));
     }
 
     /**
@@ -42,10 +35,6 @@ class SubmoduleController extends Controller
     public function store(Request $request)
     {
         //
-        // dd($request->all());
-        $mod = Module::find($request->mod_id);
-        $mod->submodules()->save(new Submodule(['name'=>$request->name,'fa_desc'=>$request->fa_desc,'url'=>$request->url_default]));
-        return redirect()->route('modules.show',$request->mod_id);
     }
 
     /**
@@ -68,10 +57,6 @@ class SubmoduleController extends Controller
     public function edit($id)
     {
         //
-        $modules = Module::all();
-        $submod = Submodule::find($id);
-        return view('auth.submodules.edit',compact('modules','submod'));
-
     }
 
     /**
@@ -84,22 +69,6 @@ class SubmoduleController extends Controller
     public function update(Request $request, $id)
     {
         //
-        $this->validate($request,[
-          'url' => 'required|min:6',
-          'name' => 'required|min:4',
-          'fa_desc' =>  'required|min:6'
-        ]);
-        try {
-          DB::beginTransaction();
-
-          $submod = Submodule::find($id);
-          $mod = $submod->module;
-          $submod->update(['url'=>$request->url,'name'=>$request->name,'fa_desc'=>$request->fa_desc]);
-          DB::commit();
-        } catch (Exception $e) {
-          DB::rollback();
-        }
-        return redirect()->route('modules.show',$mod->id);
     }
 
     /**

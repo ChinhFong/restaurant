@@ -26,5 +26,6 @@ Route::group(['middleware'=>['auth']], function(){
         Route::resource('invoices','InvoicesController');
         Route::resource('submodules','SubmoduleController');
         Route::resource('pointofsale','PointOfSaleController');
+        Route::resource('tables','TableController');
   });
 });
