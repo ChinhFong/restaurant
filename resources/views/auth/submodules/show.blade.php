@@ -2,17 +2,6 @@
 @section('content')
   <div class="page-header">
           <h1>Sub-Menu of "{{$module->name}}"</h1>
-  </div>
-  <div class="page-header clearfix">
-    <form class="" action="{{ route('submodules.create')}}" method="get">
-      <input type="hidden" name="mod_id" value="{{$module->id}}">
-      <button type="submit" class="btn btn-success pull-right">
-        <i class="glyphicon glyphicon-plus"></i> Add more sub-module
-      </button>
-    </form>
-      {{-- <h1>
-          <a class="btn btn-success pull-right" href="{{ route('submodules.create') }}"><i class="glyphicon glyphicon-plus"></i> Add more sub-module</a>
-      </h1> --}}
 
   </div>
     <div class="row">

@@ -24,5 +24,7 @@ Route::group(['middleware'=>['auth']], function(){
         Route::get('mod','AjaxController@getModule');
         Route::resource('products','ProductsController');
         Route::resource('invoices','InvoicesController');
+        Route::resource('submodules','SubmoduleController');
+        Route::resource('pointofsale','PointOfSaleController');
   });
 });

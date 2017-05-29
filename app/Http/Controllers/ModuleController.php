@@ -86,6 +86,10 @@ class ModuleController extends Controller
     public function show($id)
     {
         //
+        $modules = Module::all();
+        $module = Module::find($id);
+        $submods = $module->submodules;
+        return view('auth.modules.show',compact('module','submods','modules'));
     }
 
     /**
