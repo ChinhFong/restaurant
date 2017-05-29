@@ -14,4 +14,7 @@ class Product extends Model
     public function user(){
       return $this->belongsTo('App\User');
     }
+    public function poses(){
+      return $this->hasMany('App\Pos');
+    }
 }

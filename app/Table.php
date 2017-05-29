@@ -10,5 +10,9 @@ class Table extends Model
     protected $fillable = [
         'name',
         'desc',
+        'status',
     ];
+    public function invoices(){
+      return $this->hasMany('App\Invoice');
+    }
 }
