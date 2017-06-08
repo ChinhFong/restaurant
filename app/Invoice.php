@@ -15,7 +15,7 @@ class Invoice extends Model
     ];
 
     public function poses(){
-      return $this->hasMany('App\Pos');
+      return $this->hasMany('App\Pos','invoice_id','id');
     }
     public function table(){
       return $this->belongTo('App\Table');

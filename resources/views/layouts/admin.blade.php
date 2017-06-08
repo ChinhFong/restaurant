@@ -34,11 +34,11 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <link rel="stylesheet" href="{{asset('css/style.css')}}">
 
 </head>
-
+    <div id="loader"></div>
 <body>
-
     <div id="wrapper container-fluid">
         <!-- Navigation -->
         <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
@@ -124,6 +124,10 @@
     <!-- Custom Theme JavaScript -->
     <script src="{{asset('assets/dist/js/sb-admin-2.js')}}"></script>
     <link href="{{asset('css/jquery.dataTables.min.css')}}" rel="stylesheet">
+    <link rel="stylesheet" href="{{asset('css/style-admin.css')}}">
+    <script src="{{asset('js/admin.js')}}">
+
+    </script>
 </body>
 @yield('scripts')
 </html>

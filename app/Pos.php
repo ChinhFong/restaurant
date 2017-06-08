@@ -16,6 +16,9 @@ class Pos extends Model
     ];
 
     public function invoice(){
-      return $this->belongTo('App\Invoice');
+      return $this->belongsTo('App\Invoice','invoice_id','id');
+    }
+    public function product(){
+      return $this->belongsTo('App\Product','product_id','id');
     }
 }

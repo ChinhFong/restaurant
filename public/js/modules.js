@@ -11,4 +11,5 @@ $(document).ready(function(){
     autoFill($(this).val().toLowerCase(),$('#url'));
     autoFill($(this).val().toLowerCase(),$('#url_def'));
   });
+  
 });
