@@ -37,22 +37,24 @@
                       {{ Form::label('qty','Quantity :')}}
                       {{ Form::number('qty','1',['class'=>'form-control','id'=>'qty','min'=>1])}}
                     </div>
-                    <div class="col-md-2 col-md-offset-5 pull-right">
-                      <div class="form-group">
-                        {{Form::label('&nbsp;','')}}
-                        <button type="submit" class="btn btn-primary add-order" style="padding:8px 20px;"> Add  </button>
-                      </div>
+                    <div class="col-md-2 col-md-offset-4 ">
+                      <button type="submit" class="btn btn-primary add-order" style=" margin-top:25px"> Add  </button>
+                      @if($invoice!=null)
+                        <button type="button" class="btn btn-info checkout pull-right" style="margin-top:25px" data-toggle="modal" data-target=".bs-example-modal-sm-checkout" data-keyboard="false" data-backdrop="static"> Checkout </button>
+                      @endif
                     </div>
                   </div>
                 </form>
                   <div class="row">
-                    @foreach ($poses as $pos)
-                      @php
-                        $product = $pos->product;
-                      @endphp
-                      <a class="update_order_qty" href="#" data-toggle="modal" data-target=".bs-example-modal-sm{{$pos->id}}-qty" data-keyboard="false" data-backdrop="static"></a>
-                      @include('includes.modal_pos')
-                    @endforeach
+                    @if($invoice!=null)
+                      @foreach ($poses as $pos)
+                        @php
+                          $product = $pos->product;
+                        @endphp
+                        <a class="update_order_qty" href="#" data-toggle="modal" data-target=".bs-example-modal-sm{{$pos->id}}-qty" data-keyboard="false" data-backdrop="static"></a>
+                        @include('includes.modal_pos')
+                      @endforeach
+                    @endif
                     @if($invoice!=null)
                         <table id="dataTable" class="dataTable display table table-condensed table-striped" cellspacing="0" width="100%">
                           <thead>
@@ -84,16 +86,21 @@
                               </td>
                             </tr>
                             @endforeach
-                            <tr>
-                              <td>Ptas Pu</td>
-                              <td></td>
-                              <td></td>
-                              <td>Total Amount :</td>
-                              <td>${{$invoice->amount}}</td>
-                              <td></td>
-                            </tr>
                         </tbody>
                       </table>
+                      <table class="table table-condensed table-striped" cellspacing="0" width="100%">
+                        <tbody>
+                          <tr>
+                            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                            <td></td>
+                            <td>Total Amount: ${{$invoice->amount}}</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                      @include('includes.checkout')
                       @else
                           <h3 class="text-center alert alert-info">Empty!</h3>
                       @endif

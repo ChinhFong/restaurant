@@ -38,7 +38,7 @@ class PointOfSaleController extends Controller
     {
         $modules = Module::all();
         $table = Table::where(['name'=>Input::input('value')])->get();
-        $invoice = Invoice::where(['table_id'=>$table[0]->id])->where(['payment'=>"not pay"])->first();
+        $invoice = Invoice::where(['table_id'=>$table[0]->id,'payment'=>"not pay"])->first();
         $poses=null;
         if($invoice!=null){
           $poses = Pos::where(['invoice_id'=>$invoice->id])->get();
@@ -134,22 +134,39 @@ class PointOfSaleController extends Controller
     {
 
         if($request->update_qty<=0){
-          try {
+          try{// press button edit.
             DB::beginTransaction();
-            // dd($request->all());
+
             $product = Product::find($request->product);
             $invoice = Invoice::find($request->inv);
             $user = Auth::user();
             $pos = Pos::find($id);
             $old_amount = $pos->amount;                                                                                             // dd($product->out_price);
-            $user->invoices()->whereId($invoice->id)->update(['user_id'=>$user->id,'amount'=>($invoice->amount-$old_amount)+($product->out_price*$request->qty_update)]);
-            $invoice->poses()->whereId($id)->update(['product_id'=>$product->id,'price'=>$product->out_price,'qty'=>$request->qty_update,'amount'=>$product->out_price*$request->qty_update])  ;
+            $find_product = Pos::where(['product_id'=>$request->product,'invoice_id'=>$request->inv])->first();
+            // dd($find_product);
+            if($pos->product_id!=$request->product){//update to other product.
+              if($find_product){//update the exist field and delete the field meant to be update.
+                $invoice->poses()->whereId($find_product->id)->update(['qty'=>$find_product->qty+$request->qty_update,'amount'=>$find_product->amount+($product->out_price*$request->qty_update)]);
+                $invoice->poses()->whereId($id)->delete();
+                $user->invoices()->whereId($invoice->id)->update(['user_id'=>$user->id,'amount'=>($invoice->amount-$old_amount)+($product->out_price*$request->qty_update)]);
+              }
+              else{//update to something else.
+                $user->invoices()->whereId($invoice->id)->update(['user_id'=>$user->id,'amount'=>($invoice->amount-$old_amount)+($product->out_price*$request->qty_update)]);
+                $invoice->poses()->whereId($id)->update(['product_id'=>$product->id,'price'=>$product->out_price,'qty'=>$request->qty_update,'amount'=>$product->out_price*$request->qty_update]);
+              }
+            }
+            else{//update qty.
+              $old_pos = Pos::where(['product_id'=>$request->product,'invoice_id'=>$request->inv])->first();
+              $user->invoices()->whereId($invoice->id)->update(['user_id'=>$user->id,'amount'=>($invoice->amount)+($product->out_price*$request->qty_update)]);
+              $invoice->poses()->whereId($id)->update(['price'=>$product->out_price,'qty'=>$find_product->qty+$request->qty_update,'amount'=>$find_product->amount+($product->out_price*$request->qty_update)]);
+            }
+
             DB::commit();
           } catch (Exception $e) {
             DB::rollback();
           }
         }
-        else{
+        else{//if double click on the table field.
           try {
             DB::beginTransaction();
             $invoice = Invoice::find($request->inv);
@@ -174,6 +191,6 @@ class PointOfSaleController extends Controller
      */
     public function destroy($id)
     {
-        //
+        // ar
     }
 }

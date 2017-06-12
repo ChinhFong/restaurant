@@ -35,4 +35,7 @@ class User extends Authenticatable
     public function invoices(){
       return $this->hasMany('App\Invoice');
     }
+    public function exchangerate(){
+      return $this->hasOne('App\Exchangerate');
+    }
 }

@@ -36,7 +36,7 @@ function defaultSelectOpt(select,val){
 $(document).ready(function(){
   $('.dataTable').DataTable({
     // "order":[[0,'desc']],
-    "scrollY": 350,
+    "scrollY": 300,
     "scrollX": true,
   });
   $('.toggle_left').hide();
@@ -55,7 +55,6 @@ $(document).ready(function(){
   });
   $('.dataTable tbody').on('dblclick', 'tr', function () {
         var data = $('.dataTable').DataTable().row( this ).data();
-        // alert( 'You clicked on '+data[1]+'\'s row' );
         $('.update_order_qty')[data[0]-1].click();
     } );
 });

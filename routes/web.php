@@ -21,11 +21,12 @@ Route::get('/dashboard', 'HomeController@index')->name('dashboard');
 Route::group(['middleware'=>['auth']], function(){
   Route::group(['prefix' => 'dashboard'], function () {
         Route::resource('modules','ModuleController');
-        Route::get('mod','AjaxController@getModule');
         Route::resource('products','ProductsController');
         Route::resource('invoices','InvoicesController');
         Route::resource('submodules','SubmoduleController');
         Route::resource('pointofsale','PointOfSaleController');
         Route::resource('tables','TableController');
+        Route::resource('exchangerate','ExchangerateController');
+        Route::get('mod','AjaxController@getModule');
   });
 });
