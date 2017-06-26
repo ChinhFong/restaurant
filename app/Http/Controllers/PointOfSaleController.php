@@ -8,6 +8,7 @@ use App\Pos;
 use App\Table;
 use App\Invoice;
 use App\Product;
+use App\Exchangerate;
 use Auth;
 use DB;
 use Illuminate\Support\Facades\Input;
@@ -37,6 +38,7 @@ class PointOfSaleController extends Controller
     public function create()
     {
         $modules = Module::all();
+        $er = Exchangerate::first();
         $table = Table::where(['name'=>Input::input('value')])->get();
         $invoice = Invoice::where(['table_id'=>$table[0]->id,'payment'=>"not pay"])->first();
         $poses=null;
@@ -45,7 +47,7 @@ class PointOfSaleController extends Controller
         }
         // dd($poses[0]->id);
         $products = Product::pluck('name','id')->all();
-        return view('auth.pos.create',compact('modules','invoice','table','products','poses'));
+        return view('auth.pos.create',compact('modules','invoice','table','products','poses','er'));
     }
 
     /**

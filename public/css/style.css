@@ -8,3 +8,6 @@ a:hover > .expand-nav{background-color: gray;}
 .style-nav  a{color:#48484D;}
 .exp-navi,.exp-navi:hover{color:white;}
 .btn-style{margin:15px;}
+.close_error{padding: 0;cursor: pointer;background: 0 0;border: 0;-webkit-appearance: none;}
+.close_error > span {color:#d2c9c9; font-weight: 700; line-height: 1;}
+.close_error > span:hover {color:grey;}
